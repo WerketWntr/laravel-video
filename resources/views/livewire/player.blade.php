@@ -1,5 +1,6 @@
+@php use Illuminate\Support\Facades\Storage; @endphp
 <div>
-   <video id="player" playsinline controls data-poster="{{ asset('storage/' . $video->thumbnail_path) }}">
+   <video id="player" playsinline controls data-poster="{{ $video->thumbnail_path ? Storage::url($video->thumbnail_path) : '' }}">
        @foreach($video->formats as $format)
            <source src="{{ $format->file_path }}" type="video/mp4" size="{{ $format->quality }}" />
     @endforeach

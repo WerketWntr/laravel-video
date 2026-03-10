@@ -32,7 +32,18 @@ class EncodeVideo implements ShouldQueue
      */
     public function handle(): void
     {
+//    dump('job started');
+//
+//        try {
+//            $media = FFMpeg::fromDisk('public')->open($this->video->original_file_path);
+//            $videoDimensions = $media->getVideoStream()->getDimensions();
+//            dump($videoDimensions->getWidth(), $videoDimensions->getHeight());
+//        } catch (\Exception $e) {
+//            dump('ERROR: ' . $e->getMessage());
+//            return;
+//        }
         $qualities = [
+            '240' => ['width' => 426, 'height' => 240, 'bitrate' => 400],
             '360' => ['width' => 640, 'height' => 360, 'bitrate' => 800],
             '720' => ['width' => 1280, 'height' => 720, 'bitrate' => 2500],
             '1080' => ['width' => 1920, 'height' => 1080, 'bitrate' => 5000],
@@ -42,7 +53,6 @@ class EncodeVideo implements ShouldQueue
         $media = FFMpeg::fromDisk('public')->open($this->video->original_file_path);
 //        dd($this->video->original_file_path);
         $videoDimensions = $media->getVideoStream()->getDimensions();
-
         foreach ($qualities as $quality => $specs){
             if ($videoDimensions->getWidth() >= $specs['width'] && $videoDimensions->getHeight() >= $specs['height']) {
                 $format = (new \FFMpeg\Format\Video\X264('aac', 'libx264'))

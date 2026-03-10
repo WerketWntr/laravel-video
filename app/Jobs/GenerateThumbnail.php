@@ -36,10 +36,11 @@ class GenerateThumbnail implements ShouldQueue
             ->export()
             ->toDisk('public')
             ->afterSaving(function($exporter, Media $media) {
+                dump($media->getPath());
                 $this->video->update([
                     'thumbnail_path' => $media->getpath()
                 ]);
             })
-            ->save('/thumbnails/' . Str::uuid() . '.jpg');
+            ->save('thumbnails/' . Str::uuid() . '.jpg');
     }
 }

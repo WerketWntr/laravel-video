@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Facades\Storage; @endphp
 <div x-data="{playing: false}">
     <div class="col-span-4">
         <x-card>
@@ -8,10 +9,10 @@
                        id="player"
                        muted
                        loop
-                       poster="{{ asset('storage/' . $video->thumbnail_path) ?? ''}}"
+                       poster="{{ $video->thumbnail_path ? Storage::url($video->thumbnail_path) : '' }}"
                        data-poster="/{{ $video->thumbnail_path ?? '' }}">
                     @foreach($video->formats as $format)
-                        <source src="{{ $format->file_path }}" type="video/mp4" size="{{ $format->quality }}"/>
+                        <source src="{{ Storage::url($format->file_path) }}" type="video/mp4" size="{{ $format->quality }}"/>
                     @endforeach
                 </video>
             </x-slot:figure>

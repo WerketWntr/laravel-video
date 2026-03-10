@@ -22,9 +22,10 @@
                                 </x-slot:append>
                             </x-input>
                             @if(strlen($query)>0 && count($searchResults) > 0)
-                                <div class="absolute w-full bg-white mt-1 border shadow-lg rounded z-50">
+                                <div class="absolute w-full mt-1 border border-gray-200 shadow-xl rounded-lg z-50 overflow-hidden"
+                                     style="background-color: #1e293b;">
                                     @foreach($searchResults as $result)
-                                        <div wire:click="setQuery('{{ $result['title'] }}">
+                                        <div wire:click="setQuery('{{ $result['title'] }}')">
                                             {{ $result['title'] }}
                                         </div>
                                     @endforeach
